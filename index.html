@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8" />
+  <title>hello-wasm example</title>
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+
+<body class="container">
+  <h2>Speed Test</h2>
+  <div class="demo-area">
+    <div>
+      <h3>Add</h3>
+      <input type="number" id="num1" placeholder="number">
+      <span>+</span>
+      <input type="number" id="num2" placeholder="number">
+      <button onclick="add('JS')">JS</button>
+      <button onclick="add('WASM')">WASM</button>
+      <div id="sumResultJS" class="result">JS</div>
+      <div id="sumResultWASM" class="result">WASM</div>
+    </div>
+
+    <div>
+      <h3>Fibonacci</h3>
+      <input type="number" id="fibInput" placeholder="n">
+      <button onclick="fibonacci('JS')">JS</button>
+      <button onclick="fibonacci('WASM')">WASM</button>
+      <div id="fibResultJS" class="result">JS</div>
+      <div id="fibResultWASM" class="result">WASM</div>
+    </div>
+
+    <div>
+      <h3>Sieve</h3>
+      <input type="number" id="sieveInput" placeholder="n">
+      <button onclick="sieve('JS')">JS</button>
+      <button onclick="sieve('WASM')">WASM</button>
+      <div id="sieveResultJS" class="result">JS</div>
+      <div id="sieveResultWASM" class="result">WASM</div>
+    </div>
+
+    <div>
+      <h3>Matrix</h3>
+      <input type="number" id="matrixInput" placeholder="n">
+      <button onclick="matrix('JS')">JS</button>
+      <button onclick="matrix('WASM')">WASM</button>
+      <div id="matrixResultJS" class="result">JS</div>
+      <div id="matrixResultWASM" class="result">WASM</div>
+    </div>
+
+  </div>
+
+  <script type="module" src="index.js">
+  </script>
+</body>
+
+</html>
