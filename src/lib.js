@@ -64,3 +64,29 @@ export function matrixMultiply(a, b, n) {
   }
   return result;
 }
+
+export function computeMandelbrot(width, height, maxIter) {
+    const output = new Array(width * height);
+    
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            const cx = (x / width) * 3.5 - 2.5;
+            const cy = (y / height) * 2.0 - 1.0;
+            
+            let zx = 0;
+            let zy = 0;
+            let iter = 0;
+            
+            while (zx * zx + zy * zy <= 4 && iter < maxIter) {
+                const temp = zx * zx - zy * zy + cx;
+                zy = 2 * zx * zy + cy;
+                zx = temp;
+                iter++;
+            }
+            
+            output[y * width + x] = iter;
+        }
+    }
+    
+    return output;
+}

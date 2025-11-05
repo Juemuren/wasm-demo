@@ -90,3 +90,29 @@ pub fn matrix_multiply(a: &[f64], b: &[f64], n: usize) -> Vec<f64> {
     result
 }
 
+#[wasm_bindgen]
+pub fn compute_mandelbrot(width: usize, height: usize, max_iter: usize) -> Vec<usize> {
+    let mut output = vec![0; width * height];
+    
+    for y in 0..height {
+        for x in 0..width {
+            let cx = (x as f64 / width as f64) * 3.5 - 2.5;
+            let cy = (y as f64 / height as f64) * 2.0 - 1.0;
+            
+            let mut zx = 0.0;
+            let mut zy = 0.0;
+            let mut iter = 0;
+            
+            while zx * zx + zy * zy <= 4.0 && iter < max_iter {
+                let temp = zx * zx - zy * zy + cx;
+                zy = 2.0 * zx * zy + cy;
+                zx = temp;
+                iter += 1;
+            }
+            
+            output[y * width + x] = iter;
+        }
+    }
+    
+    output
+}

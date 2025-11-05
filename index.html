@@ -48,6 +48,17 @@
       <div id="matrixResultWASM" class="result">WASM</div>
     </div>
 
+    <div>
+      <h3>Mandelbrot</h3>
+      <input type="number" id="mandelbrotInput" placeholder="n">
+      <button onclick="mandelbrot('JS')">JS</button>
+      <button onclick="mandelbrot('WASM')">WASM</button>
+      <div id="mandelbrotResultJS" class="result">JS</div>
+      <canvas id="mandelbrotJS" width="400" height="300"></canvas>
+      <div id="mandelbrotResultWASM" class="result">WASM</div>
+      <canvas id="mandelbrotWASM" width="400" height="300"></canvas>
+    </div>
+
   </div>
 
   <script type="module" src="index.js">
