@@ -3,14 +3,12 @@ import init, {
   add as addWASM,
   fibonacci_iterative as fibonacciWASM,
   sieve as sieveWASM,
-  matrix_multiply as matrixWASM,
   compute_mandelbrot as mandelbrotWASM
 } from "./pkg/hello_wasm.js";
 import {
   add as addJS,
   fibonacciIterative as fibonacciJS,
   sieve as sieveJS,
-  matrixMultiply as matrixJS,
   computeMandelbrot as mandelbrotJS
 } from "./src/lib.js"
 
@@ -46,20 +44,6 @@ function sieve(type) {
     `[${type}] Sieve(${n}): ${result.length}, Time: ${(endTime - startTime).toFixed(3)} ms`;
 }
 
-function matrix(type) {
-  const n = parseInt(document.getElementById('matrixInput').value) || 0;
-
-  const a = new Array(n * n).fill(1);
-  const b = new Array(n * n).fill(2);
-
-  const startTime = performance.now();
-  const result = type === "JS" ? matrixJS(a, b, n) : matrixWASM(a, b, n);
-  const endTime = performance.now();
-
-  document.getElementById(`matrixResult${type}`).innerHTML =
-    `[${type}] matrix(${n}): ${result[0]}, Time: ${(endTime - startTime).toFixed(3)} ms`;
-}
-
 function mandelbrot(type) {
   const canvas = document.getElementById(`mandelbrot${type}`);
   const ctx = canvas.getContext('2d');
@@ -87,7 +71,7 @@ function mandelbrot(type) {
   ctx.putImageData(imageData, 0, 0);
 
   document.getElementById(`mandelbrotResult${type}`).innerHTML =
-    `[${type}] mandelbrot(${n}): ${result[0]}, Time: ${(endTime - startTime).toFixed(3)} ms`;
+    `[${type}] Mandelbrot(${n}), Time: ${(endTime - startTime).toFixed(3)} ms`;
 }
 
 init().then(() => {
@@ -95,7 +79,6 @@ init().then(() => {
   window.add = add
   window.fibonacci = fibonacci
   window.sieve = sieve
-  window.matrix = matrix
   window.mandelbrot = mandelbrot
 });
 

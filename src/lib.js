@@ -22,23 +22,6 @@ export function fibonacciIterative(n) {
   return b;
 }
 
-export function fibonacciMemoized(n) {
-  const memo = new Array(n + 1).fill(0);
-
-  function fib(n) {
-    if (n <= 1) return n;
-
-    if (memo[n] !== 0) {
-      return memo[n];
-    }
-
-    memo[n] = fib(n - 1) + fib(n - 2);
-    return memo[n];
-  }
-
-  return fib(n);
-}
-
 export function sieve(n) {
   const primes = [];
   const isPrime = new Array(n + 1).fill(true);
@@ -51,18 +34,6 @@ export function sieve(n) {
     }
   }
   return primes;
-}
-
-export function matrixMultiply(a, b, n) {
-  const result = new Array(n * n).fill(0);
-  for (let i = 0; i < n; i++) {
-    for (let k = 0; k < n; k++) {
-      for (let j = 0; j < n; j++) {
-        result[i * n + j] += a[i * n + k] * b[k * n + j];
-      }
-    }
-  }
-  return result;
 }
 
 export function computeMandelbrot(width, height, maxIter) {
