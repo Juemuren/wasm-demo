@@ -59,7 +59,7 @@ pub fn sieve(n: u32) -> Vec<u32> {
 }
 
 #[wasm_bindgen]
-pub fn compute_mandelbrot(width: usize, height: usize, max_iter: usize) -> Vec<usize> {
+pub fn compute_mandelbrot(max_iter: usize, width: usize, height: usize) -> Vec<usize> {
     let mut output = vec![0; width * height];
 
     for y in 0..height {

@@ -14,18 +14,18 @@
   <header>
     <section>
       <h3>Greet</h3>
-      <input type="text" id="greetInput" placeholder="text" value="WebAssembly">
-      <button onclick="greet(document.getElementById('greetInput').value)">HELLO</button>
+      <input type="text" id="greet-input" placeholder="text" value="WebAssembly">
+      <button onclick="greet(document.getElementById('greet-input').value)">HELLO</button>
     </section>
     <section>
       <h3>Add</h3>
-      <input type="number" id="num1" placeholder="number">
+      <input type="number" id="add-input-1" placeholder="number">
       <span>+</span>
-      <input type="number" id="num2" placeholder="number">
-      <button onclick="add('JS')">JS</button>
-      <button onclick="add('WASM')">WASM</button>
-      <p id="sumResultJS">JS</p>
-      <p id="sumResultWASM">WASM</p>
+      <input type="number" id="add-input-2" placeholder="number">
+      <button onclick="add('js')">JS</button>
+      <button onclick="add('wasm')">WASM</button>
+      <p id="add-result-js">JS</p>
+      <p id="add-result-wasm">WASM</p>
     </section>
   </header>
 
@@ -33,45 +33,49 @@
   <header>
     <section>
       <h3>Fibonacci</h3>
-      <input type="number" id="fibInput" placeholder="n">
-      <button onclick="fibonacci('JS')">JS</button>
-      <button onclick="fibonacci('WASM')">WASM</button>
-      <p id="fibResultJS">JS</p>
-      <p id="fibResultWASM">WASM</p>
+      <input type="number" id="fibonacci-input" placeholder="n">
+      <button onclick="fibonacci('js')">JS</button>
+      <button onclick="fibonacci('wasm')">WASM</button>
+      <p id="fibonacci-result-js">JS</p>
+      <p id="fibonacci-result-wasm">WASM</p>
     </section>
     <section>
       <h3>Sieve</h3>
-      <input type="number" id="sieveInput" placeholder="n">
-      <button onclick="sieve('JS')">JS</button>
-      <button onclick="sieve('WASM')">WASM</button>
-      <p id="sieveResultJS">JS</p>
-      <p id="sieveResultWASM">WASM</p>
+      <input type="number" id="sieve-input" placeholder="n">
+      <button onclick="sieve('js')">JS</button>
+      <button onclick="sieve('wasm')">WASM</button>
+      <p id="sieve-result-js">JS</p>
+      <p id="sieve-result-wasm">WASM</p>
     </section>
     <section>
       <h3>Mandelbrot</h3>
-      <input type="number" id="mandelbrotInput" placeholder="n">
-      <button onclick="mandelbrot('JS')">JS</button>
-      <button onclick="mandelbrot('WASM')">WASM</button>
-      <p id="mandelbrotResultJS">JS</p>
-      <canvas id="mandelbrotJS" width="400" height="300"></canvas>
-      <p id="mandelbrotResultWASM">WASM</p>
-      <canvas id="mandelbrotWASM" width="400" height="300"></canvas>
+      <input type="number" id="mandelbrot-input" placeholder="n">
+      <span>width</span>
+      <input type="number" id="mandelbrot-input-width" placeholder="width" value="400">
+      <span>height</span>
+      <input type="number" id="mandelbrot-input-height" placeholder="height" value="300">
+      <button onclick="mandelbrot('js')">JS</button>
+      <button onclick="mandelbrot('wasm')">WASM</button>
+      <p id="mandelbrot-result-js">JS</p>
+      <canvas id="mandelbrot-canvas-js" width="0" height="0"></canvas>
+      <p id="mandelbrot-result-wasm">WASM</p>
+      <canvas id="mandelbrot-canvas-wasm" width="0" height="0"></canvas>
     </section>
     <section>
       <h3>FFT</h3>
-      <input type="file" accept="image/*" id="FFTInput" placeholder="image" onchange="handleFileSelect(event, 'FFT')">
-      <button onclick="FFT('JS')">JS</button>
-      <button onclick="FFT('WASM')">WASM</button>
-      <canvas id="FFTOriginalCanvas" width="0" height="0"></canvas>
-      <p id="FFTResultJS">JS</p>
-      <canvas id="FFTJS" width="0" height="0"></canvas>
-      <p id="FFTResultWASM">WASM</p>
-      <canvas id="FFTWASM" width="0" height="0"></canvas>
+      <input type="file" accept="image/*" placeholder="image" onchange="handleFileSelect(event, 'fft')">
+      <button onclick="FFT('js')">JS</button>
+      <button onclick="FFT('wasm')">WASM</button>
+      <p>Original image</p>
+      <canvas id="fft-canvas" width="0" height="0"></canvas>
+      <p id="fft-result-js">JS</p>
+      <canvas id="fft-canvas-js" width="0" height="0"></canvas>
+      <p id="fft-result-wasm">WASM</p>
+      <canvas id="fft-canvas-wasm" width="0" height="0"></canvas>
     </section>
   </header>
 
-  <script type="module" src="index.js">
-  </script>
+  <script type="module" src="index.js"></script>
 
 </body>
 

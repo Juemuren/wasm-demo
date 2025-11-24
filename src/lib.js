@@ -36,7 +36,7 @@ export function sieve(n) {
   return primes;
 }
 
-export function computeMandelbrot(width, height, maxIter) {
+export function computeMandelbrot(maxIter, width, height) {
   const output = new Array(width * height);
 
   for (let y = 0; y < height; y++) {

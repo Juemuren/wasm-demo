@@ -9,17 +9,17 @@ export function handleFileSelect(event, name) {
   reader.onload = function (e) {
     const img = new Image();
     img.onload = function () {
-      const size = getOptimalSize(img.width, img.height);
-      const originalCanvas = document.getElementById(`${name}OriginalCanvas`);
+      const size = getOptimalSize(512, img.width, img.height);
+      const originalCanvas = document.getElementById(`${name}-canvas`);
       const originalCtx = originalCanvas.getContext('2d');
-      const JSCanvas = document.getElementById(`${name}JS`);
-      const WASMCanvas = document.getElementById(`${name}WASM`);
+      const jsCanvas = document.getElementById(`${name}-canvas-js`);
+      const wasmCanvas = document.getElementById(`${name}-canvas-wasm`);
       originalCanvas.width = size.width;
       originalCanvas.height = size.height;
-      JSCanvas.width = size.width;
-      JSCanvas.height = size.height;
-      WASMCanvas.width = size.width;
-      WASMCanvas.height = size.height;
+      jsCanvas.width = size.width;
+      jsCanvas.height = size.height;
+      wasmCanvas.width = size.width;
+      wasmCanvas.height = size.height;
       originalCtx.drawImage(img, 0, 0, size.width, size.height);
     };
     img.src = e.target.result;
@@ -27,15 +27,11 @@ export function handleFileSelect(event, name) {
   reader.readAsDataURL(file);
 }
 
-function getOptimalSize(width, height) {
-  const maxSize = 512;
-
-  // 计算缩放比例
+function getOptimalSize(maxSize, width, height) {
   const scale = Math.min(maxSize / width, maxSize / height);
   let newWidth = Math.floor(width * scale);
   let newHeight = Math.floor(height * scale);
 
-  // 调整为 2 的幂次方
   newWidth = nearestPowerOfTwo(newWidth);
   newHeight = nearestPowerOfTwo(newHeight);
 
