@@ -98,11 +98,11 @@ function FFT(type) {
 }
 
 init().then(() => {
-  greet("WebAssembly");
+  window.greet = greet
+  window.handleFileSelect = handleFileSelect
   window.add = add
   window.fibonacci = fibonacci
   window.sieve = sieve
   window.mandelbrot = mandelbrot
   window.FFT = FFT
-  window.handleFileSelect = handleFileSelect
 });
