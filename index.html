@@ -2,7 +2,8 @@
 <html lang="zh-CN">
 
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>hello-wasm example</title>
   <link rel="stylesheet" type="text/css" href="index.css">
 </head>
@@ -10,6 +11,7 @@
 <body class="container">
   <h2>Speed Test</h2>
   <div class="demo-area">
+
     <div>
       <h3>Add</h3>
       <input type="number" id="num1" placeholder="number">
@@ -48,6 +50,18 @@
       <canvas id="mandelbrotJS" width="400" height="300"></canvas>
       <div id="mandelbrotResultWASM" class="result">WASM</div>
       <canvas id="mandelbrotWASM" width="400" height="300"></canvas>
+    </div>
+
+    <div>
+      <h3>FFT</h3>
+      <input type="file" accept="image/*" id="FFTInput" placeholder="image" onchange="handleFileSelect(event, 'FFT')">
+      <button onclick="FFT('JS')">JS</button>
+      <button onclick="FFT('WASM')">WASM</button>
+      <canvas id="FFTOriginalCanvas"></canvas>
+      <div id="FFTResultJS" class="result">JS</div>
+      <canvas id="FFTJS"></canvas>
+      <div id="FFTResultWASM" class="result">WASM</div>
+      <canvas id="FFTWASM"></canvas>
     </div>
 
   </div>

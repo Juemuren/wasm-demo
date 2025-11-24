@@ -3,14 +3,23 @@ import init, {
   add as addWASM,
   fibonacci_iterative as fibonacciWASM,
   sieve as sieveWASM,
-  compute_mandelbrot as mandelbrotWASM
-} from "./pkg/hello_wasm.js";
+  compute_mandelbrot as mandelbrotWASM,
+  fft2d as fftWASM,
+} from "./pkg/wasm.js";
 import {
   add as addJS,
   fibonacciIterative as fibonacciJS,
   sieve as sieveJS,
-  computeMandelbrot as mandelbrotJS
+  computeMandelbrot as mandelbrotJS,
+  fft2d as fftJS,
 } from "./src/lib.js"
+import {
+  handleFileSelect,
+  displayImage,
+  convertToGrayscale,
+  computeMagnitudeSpectrum,
+} from "./src/utils.js"
+
 
 function add(type) {
   const num1 = parseInt(document.getElementById('num1').value) || 0;
@@ -49,8 +58,6 @@ function mandelbrot(type) {
   const ctx = canvas.getContext('2d');
   const width = canvas.width;
   const height = canvas.height;
-  const imageData = ctx.createImageData(width, height);
-  const data = imageData.data
 
   const n = parseInt(document.getElementById('mandelbrotInput').value) || 0;
 
@@ -58,20 +65,36 @@ function mandelbrot(type) {
   const result = type === "JS" ? mandelbrotJS(width, height, n) : mandelbrotWASM(width, height, n);
   const endTime = performance.now();
 
-  for (let i = 0; i < result.length; i++) {
-    const iter = result[i];
-    const gray = iter === n ? 0 : Math.min(255, Math.floor(iter * 255 / n));
-    const idx = i * 4;
-    data[idx] = gray;        // R
-    data[idx + 1] = gray;    // G
-    data[idx + 2] = gray;    // B
-    data[idx + 3] = 255;     // A
-  }
-
-  ctx.putImageData(imageData, 0, 0);
+  displayImage(ctx, result, width, height, (val) =>
+    val === n ? 0 : Math.min(255, Math.floor(val * 255 / n))
+  );
 
   document.getElementById(`mandelbrotResult${type}`).innerHTML =
     `[${type}] Mandelbrot(${n}), Time: ${(endTime - startTime).toFixed(3)} ms`;
+}
+
+function FFT(type) {
+  const originalCanvas = document.getElementById('FFTOriginalCanvas');
+  const originalCtx = originalCanvas.getContext('2d');
+  const width = originalCanvas.width;
+  const height = originalCanvas.height;
+  const fftCanvas = document.getElementById(`FFT${type}`);
+  const fftCtx = fftCanvas.getContext('2d');
+
+  const imageData = originalCtx.getImageData(0, 0, width, height);
+  const grayData = convertToGrayscale(imageData);
+
+  const startTime = performance.now();
+  const fftData = type === "JS" ? fftJS(grayData, width, height) : fftWASM(grayData, width, height);
+  const endTime = performance.now();
+
+  const magnitude = computeMagnitudeSpectrum(fftData, width, height);
+  displayImage(fftCtx, magnitude, width, height, (val) =>
+    Math.floor(val * 255)
+  );
+
+  document.getElementById(`FFTResult${type}`).innerHTML =
+    `[${type}] FFT, Time: ${(endTime - startTime).toFixed(3)} ms`;
 }
 
 init().then(() => {
@@ -80,6 +103,6 @@ init().then(() => {
   window.fibonacci = fibonacci
   window.sieve = sieve
   window.mandelbrot = mandelbrot
+  window.FFT = FFT
+  window.handleFileSelect = handleFileSelect
 });
-
-
