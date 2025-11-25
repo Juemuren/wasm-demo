@@ -1,7 +1,7 @@
 export function handleFileSelect(event, name) {
   const file = event.target.files[0];
-  if (!file.type.match('image.*')) {
-    alert('invalid file type. Please select an image file.');
+  if (!file.type.match("image.*")) {
+    alert("invalid file type. Please select an image file.");
     return;
   }
 
@@ -10,17 +10,11 @@ export function handleFileSelect(event, name) {
     const img = new Image();
     img.onload = function () {
       const size = getOptimalSize(512, img.width, img.height);
-      const originalCanvas = document.getElementById(`${name}-canvas`);
-      const originalCtx = originalCanvas.getContext('2d');
-      const jsCanvas = document.getElementById(`${name}-canvas-js`);
-      const wasmCanvas = document.getElementById(`${name}-canvas-wasm`);
-      originalCanvas.width = size.width;
-      originalCanvas.height = size.height;
-      jsCanvas.width = size.width;
-      jsCanvas.height = size.height;
-      wasmCanvas.width = size.width;
-      wasmCanvas.height = size.height;
-      originalCtx.drawImage(img, 0, 0, size.width, size.height);
+      const canvas = document.getElementById(`${name}-canvas`);
+      canvas.width = size.width;
+      canvas.height = size.height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(img, 0, 0, size.width, size.height);
     };
     img.src = e.target.result;
   };
@@ -49,14 +43,14 @@ export const displayImage = (ctx, data, width, height, handleIter) => {
   for (let i = 0; i < data.length; i++) {
     const gray = handleIter(data[i]);
     const idx = i * 4;
-    imgData[idx] = gray;        // R
-    imgData[idx + 1] = gray;    // G  
-    imgData[idx + 2] = gray;    // B
-    imgData[idx + 3] = 255;     // A
+    imgData[idx] = gray;      // R
+    imgData[idx + 1] = gray;  // G
+    imgData[idx + 2] = gray;  // B
+    imgData[idx + 3] = 255;   // A
   }
 
   ctx.putImageData(imageData, 0, 0);
-}
+};
 
 export function convertToGrayscale(imageData) {
   const data = imageData.data;

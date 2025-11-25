@@ -106,8 +106,9 @@ function mandelbrot(type) {
     getAdditionalArgs: (type) => {
       const width = parseInt(document.getElementById(`mandelbrot-input-width`).value) || 400;
       const height = parseInt(document.getElementById(`mandelbrot-input-height`).value) || 300;
-      document.getElementById(`mandelbrot-canvas-${type}`).width = width;
-      document.getElementById(`mandelbrot-canvas-${type}`).height = height;
+      const canvas = document.getElementById(`mandelbrot-canvas-${type}`)
+      canvas.width = width;
+      canvas.height = height;
       return [width, height]
     },
     processResult: (result, type, inputValue) => {
@@ -128,12 +129,17 @@ function FFT(type) {
     name: "fft",
     jsFunc: fftJS,
     wasmFunc: fftWASM,
-    getAdditionalArgs: () => {
+    getAdditionalArgs: (type) => {
       const canvas = document.getElementById('fft-canvas');
+      const width = canvas.width
+      const height = canvas.height
+      const outputCanvas = document.getElementById(`fft-canvas-${type}`)
+      outputCanvas.width = width
+      outputCanvas.height = height
       const ctx = canvas.getContext('2d');
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const imageData = ctx.getImageData(0, 0, width, height);
       const grayData = convertToGrayscale(imageData);
-      return [grayData, canvas.width, canvas.height];
+      return [grayData, width, height];
     },
     processResult: (result, type) => {
       const canvas = document.getElementById(`fft-canvas-${type}`);
